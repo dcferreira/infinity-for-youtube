@@ -1,6 +1,6 @@
 {
-	"name": "Awesome Extension",
-	"version": "0.0.0",
+	"name": "Hide Youtube Spoilers",
+	"version": "0.0.1",
 	"description": "An awesome new browser extension",
 	"homepage_url": "https://github.com/fregante/browser-extension-template",
 	"manifest_version": 3,
@@ -18,22 +18,22 @@
 		"storage"
 	],
 	"host_permissions": [
-		"https://github.com/*"
+		"https://*.youtube.com/*"
 	],
 	"content_scripts": [
 		{
-			"matches": [ "https://github.com/fregante/browser-extension-template/*" ],
-			"js": [ "content.js" ],
-			"css": [ "content.css" ],
-			"run_at": "document_end"
+			"matches": [ "https://*.youtube.com/watch?*" ],
+			"js": [ "watch_page.ts" , "list_page.ts"],
+			"run_at": "document_idle"
+		},
+		{
+			"matches": [ "https://*.youtube.com/*" ],
+			"js": [ "list_page.ts" ],
+			"run_at": "document_idle"
 		}
 	],
 	"options_ui": {
 		"browser_style": true,
 		"page": "options.html"
-	},
-	"background": {
-		"service_worker": "background.js",
-		"type": "module"
 	}
 }
