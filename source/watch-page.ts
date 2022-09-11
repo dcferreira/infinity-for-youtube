@@ -71,14 +71,6 @@ class FutureElement {
 	}
 }
 
-// async function showElement(element: HTMLElement | undefined) {
-// 	if (element) element.style.setProperty('opacity', '1');
-// }
-
-// async function hideElement(element: HTMLElement) {
-// 	element.style.setProperty('opacity', '0');
-// }
-
 async function removeTotalTime(duration: string) {
 	// Wait to get the channel information
 	const currChannel = await waitForElement('#meta-contents #channel-name a');
@@ -156,5 +148,4 @@ async function removeTotalTime(duration: string) {
 	}
 }
 
-// void removeProgressBar();
 void removeTotalTime('∞');
