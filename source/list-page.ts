@@ -3,8 +3,8 @@ import {getUserOptions} from './options-storage';
 async function replaceThumbnailTimes() {
 	const options = await getUserOptions();
 	const channelNames = options.channels;
-	const channelUrlsSet = new Set();
-	for (const name of channelNames.split(',')) channelUrlsSet.add('/c/' + name);
+	const channelNamesSet = new Set();
+	for (const name of channelNames.split(',')) channelNamesSet.add(name);
 
 	const duration = '∞';
 	const observer = new MutationObserver((mutations) => {
@@ -16,13 +16,13 @@ async function replaceThumbnailTimes() {
 					node instanceof HTMLElement &&
 					node.classList.contains('ytd-thumbnail-overlay-time-status-renderer')
 				) {
-					const channelUrl = node
-						.closest('.ytd-rich-item-renderer')
-						?.querySelector('.ytd-channel-name')
-						?.querySelector('.yt-simple-endpoint');
+					const channelName = node
+						.closest('ytd-thumbnail')
+						?.parentElement?.querySelector('.ytd-channel-name')
+						?.querySelector('yt-formatted-string');
 					if (
-						channelUrl &&
-						channelUrlsSet.has(channelUrl.getAttribute('href'))
+						channelName &&
+						channelNamesSet.has((channelName as HTMLElement).textContent)
 					) {
 						// Check if it belongs to a channel to remove
 						node.textContent = duration;

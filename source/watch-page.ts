@@ -3,19 +3,19 @@ import {waitForElement} from './utils';
 
 async function getChannels(): Promise<Set<string>> {
 	const options = await getUserOptions();
-	const channelNames: string = options.channels;
-	const channelUrls = new Set<string>();
-	for (const name of channelNames.split(',')) channelUrls.add('/c/' + name);
-	return channelUrls;
+	const channels: string = options.channels;
+	const channelNames = new Set<string>();
+	for (const name of channels.split(',')) channelNames.add(name);
+	return channelNames;
 }
 
 async function checkCurrentVideo(
 	channels: Promise<Set<string>>,
 ): Promise<boolean> {
 	const currChannel = document.querySelector('#meta-contents #channel-name a');
-	if (currChannel?.hasAttribute('href')) {
+	if (currChannel?.textContent) {
 		const monitoredChannels = await channels;
-		return monitoredChannels.has(currChannel.getAttribute('href')!);
+		return monitoredChannels.has(currChannel.textContent);
 	}
 
 	return false;
@@ -71,7 +71,7 @@ class FutureElement {
 	}
 }
 
-async function removeTotalTime(duration: string) {
+async function monitorPlayer(duration: string) {
 	// Wait to get the channel information
 	const currChannel = await waitForElement('#meta-contents #channel-name a');
 
@@ -148,4 +148,4 @@ async function removeTotalTime(duration: string) {
 	}
 }
 
-void removeTotalTime('∞');
+void monitorPlayer('∞');

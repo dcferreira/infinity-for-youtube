@@ -5,7 +5,7 @@ export type UserConfig = {
 };
 
 const defaults: UserConfig = {
-	channels: 'FeerRL,JohnnyBoi91',
+	channels: 'Feer,JohnnyBoi_i',
 };
 
 function buildOptions(): OptionsSync<UserConfig> {
