@@ -6,7 +6,7 @@ export type UserConfig = {
 };
 
 const defaults: UserConfig = {
-	channels: 'Feer,JohnnyBoi_i',
+	channels: 'Feer\nJohnnyBoi_i',
 	duration: '∞',
 };
 

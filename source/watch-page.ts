@@ -5,7 +5,7 @@ async function getChannels(): Promise<Set<string>> {
 	const options = await getUserOptions();
 	const channels: string = options.channels;
 	const channelNames = new Set<string>();
-	for (const name of channels.split(',')) channelNames.add(name);
+	for (const name of channels.split('\n')) channelNames.add(name);
 	return channelNames;
 }
 

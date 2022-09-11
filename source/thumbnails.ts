@@ -32,7 +32,7 @@ export async function replaceFutureThumbnailTimes(): Promise<void> {
 	const options = await getUserOptions();
 	const channelNames = options.channels;
 	const channelNamesSet = new Set<string>();
-	for (const name of channelNames.split(',')) channelNamesSet.add(name);
+	for (const name of channelNames.split('\n')) channelNamesSet.add(name);
 
 	const duration = options.duration;
 	const observer = new MutationObserver((mutations) => {
@@ -60,7 +60,7 @@ export async function replaceCurrentThumbnailTimes(): Promise<void> {
 	const options = await getUserOptions();
 	const channelNames = options.channels;
 	const channelNamesSet = new Set<string>();
-	for (const name of channelNames.split(',')) channelNamesSet.add(name);
+	for (const name of channelNames.split('\n')) channelNamesSet.add(name);
 
 	const duration = options.duration;
 	for (const node of document.querySelectorAll(
