@@ -1,14 +1,15 @@
-export function waitForElem(selector: string): Promise<HTMLElement> {
+export async function waitForElement(selector: string): Promise<HTMLElement> {
 	return new Promise((resolve) => {
-		const elem = document.querySelector(selector);
-		if (elem) {
-			return resolve(elem as HTMLElement);
+		const element = document.querySelector(selector);
+		if (element) {
+			resolve(element as HTMLElement);
+			return;
 		}
 
 		const observer = new MutationObserver(() => {
-			const elem = document.querySelector(selector);
-			if (elem) {
-				resolve(elem as HTMLElement);
+			const element = document.querySelector(selector);
+			if (element) {
+				resolve(element as HTMLElement);
 				observer.disconnect();
 			}
 		});

@@ -14,21 +14,17 @@
 	"icons": {
 		"128": "icon.png"
 	},
-	"permissions": [
-		"storage"
-	],
-	"host_permissions": [
-		"https://*.youtube.com/*"
-	],
+	"permissions": ["storage"],
+	"host_permissions": ["https://*.youtube.com/*"],
 	"content_scripts": [
 		{
-			"matches": [ "https://*.youtube.com/watch?*" ],
-			"js": [ "watch_page.ts" , "list_page.ts"],
+			"matches": ["https://*.youtube.com/watch?*"],
+			"js": ["watch-page.ts", "list-page.ts"],
 			"run_at": "document_idle"
 		},
 		{
-			"matches": [ "https://*.youtube.com/*" ],
-			"js": [ "list_page.ts" ],
+			"matches": ["https://*.youtube.com/*"],
+			"js": ["list-page.ts"],
 			"run_at": "document_idle"
 		}
 	],
