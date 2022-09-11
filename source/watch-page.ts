@@ -71,7 +71,10 @@ class FutureElement {
 	}
 }
 
-async function monitorPlayer(duration: string) {
+async function monitorPlayer() {
+	const options = await getUserOptions();
+	const duration: string = options.duration;
+
 	// Wait to get the channel information
 	const currChannel = await waitForElement('#meta-contents #channel-name a');
 
@@ -148,4 +151,4 @@ async function monitorPlayer(duration: string) {
 	}
 }
 
-void monitorPlayer('∞');
+void monitorPlayer();

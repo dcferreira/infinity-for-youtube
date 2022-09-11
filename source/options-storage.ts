@@ -2,10 +2,12 @@ import OptionsSync from 'webext-options-sync';
 
 export type UserConfig = {
 	channels: string;
+	duration: string;
 };
 
 const defaults: UserConfig = {
 	channels: 'Feer,JohnnyBoi_i',
+	duration: '∞',
 };
 
 function buildOptions(): OptionsSync<UserConfig> {
