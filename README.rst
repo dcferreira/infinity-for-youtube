@@ -1,5 +1,5 @@
-Infinity for Youtube
-====================
+|logo| Infinity for Youtube
+===========================
 
 Hide duration of some youtube videos to avoid spoilers.
 
@@ -20,6 +20,7 @@ Unlike existing similar extensions, this doesn't hide the duration for all the v
 but only for the videos in the selected YouTube channels.
 
 Hiding the video duration is currently working in:
+
 * the video player
 * the recommended videos on the side-bar
 * the YouTube homepage
@@ -40,3 +41,5 @@ Clone the repo, and load the extension manually in `Chrome <https://www.smashing
 
 Firefox is not currently available as it uses Manifest v3.
 But it should be supported soon (follow progress `here <https://bugzilla.mozilla.org/show_bug.cgi?id=1578284>`_).
+
+.. |logo| image:: source/icon32.png
