@@ -1,7 +1,7 @@
 {
-	"name": "Hide Youtube Spoilers",
+	"name": "Infinity for Youtube",
 	"version": "0.0.1",
-	"description": "An awesome new browser extension",
+	"description": "Hide duration of some youtube videos to avoid spoilers.",
 	"homepage_url": "https://github.com/fregante/browser-extension-template",
 	"manifest_version": 3,
 	"minimum_chrome_version": "100",
@@ -12,7 +12,9 @@
 		}
 	},
 	"icons": {
-		"128": "icon.png"
+		"16": "icon16.png",
+		"48": "icon48.png",
+		"128": "icon128.png"
 	},
 	"permissions": ["storage"],
 	"host_permissions": ["https://*.youtube.com/*"],
