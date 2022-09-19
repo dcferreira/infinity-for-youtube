@@ -2,15 +2,9 @@
 	"name": "Infinity for Youtube",
 	"version": "0.0.1",
 	"description": "Hide duration of some youtube videos to avoid spoilers.",
-	"homepage_url": "https://github.com/fregante/browser-extension-template",
+	"homepage_url": "https://github.com/dcferreira/infinity-for-youtube",
 	"manifest_version": 3,
 	"minimum_chrome_version": "100",
-	"browser_specific_settings": {
-		"gecko": {
-			"id": "awesome-extension@notlmn.github.io",
-			"strict_min_version": "100.0"
-		}
-	},
 	"icons": {
 		"16": "icon16.png",
 		"32": "icon32.png",
