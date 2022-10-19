@@ -27,6 +27,8 @@ Hiding the video duration is currently working in:
 * the search page
 * a user's page.
 
+You can hide/unhide the video length by clicking the ∞ symbol (total video length).
+
 The extension is currently somewhat buggy; if a video length is not correctly hidden, 
 please refresh the webpage.
 Bug reports and fixes are more than welcome!

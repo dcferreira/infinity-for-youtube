@@ -1,6 +1,8 @@
 import {getUserOptions} from './options-storage';
 import {waitForElement} from './utils';
 
+let manualUnhide = false;
+
 async function getChannels(): Promise<Set<string>> {
 	const options = await getUserOptions();
 	const channels: string = options.channels;
@@ -19,6 +21,17 @@ async function checkCurrentVideo(
 	}
 
 	return false;
+}
+
+function getTopLevelText(element: HTMLElement): string {
+	return Array.prototype.filter
+		.call(element.childNodes, function (element: HTMLElement) {
+			return element.nodeType === Node.TEXT_NODE;
+		})
+		.map(function (child: HTMLElement) {
+			return child.textContent;
+		})
+		.join('');
 }
 
 class FutureElement {
@@ -88,26 +101,53 @@ async function monitorPlayer() {
 		const removeNeeded = await checkCurrentVideo(channels);
 
 		const timeElement = time.element!;
-		if (removeNeeded && timeElement.textContent !== duration) {
+		const timeElementTextContent = getTopLevelText(timeElement);
+
+		// Helper functions to hide/unhide the time
+		async function hideTime(manualTrigger: boolean) {
+			if (manualTrigger) manualUnhide = false;
 			// Change text, but store the old value in the element
-			if (timeElement.textContent)
-				timeElement.setAttribute('old-time', timeElement.textContent);
+			if (timeElementTextContent)
+				timeElement.setAttribute('old-time', timeElementTextContent);
 			else timeElement.setAttribute('old-time', '0');
 			timeElement.textContent = duration;
+			timeElement.setAttribute('title', 'Click to reveal video length');
+			timeElement.removeEventListener('click', hideTimeManual);
+			timeElement.addEventListener('click', unhideTimeManual);
 
 			void progressBar.hide();
 			void tooltip.hide();
+		}
+
+		async function hideTimeManual() {
+			await hideTime(true);
+		}
+
+		async function unhideTime(manualTrigger: boolean) {
+			if (manualTrigger) manualUnhide = true;
+			timeElement.textContent = timeElement.getAttribute('old-time');
+			timeElement.removeEventListener('click', unhideTimeManual);
+			timeElement.addEventListener('click', hideTimeManual);
+
+			void progressBar.show();
+			void tooltip.show();
+		}
+
+		async function unhideTimeManual() {
+			await unhideTime(true);
+		}
+
+		// Check if time needs removing or not
+		if (removeNeeded && timeElementTextContent !== duration && !manualUnhide) {
+			await hideTime(false);
 		} else if (
-			!removeNeeded &&
+			(!removeNeeded || manualUnhide) &&
 			timeElement.textContent === duration &&
 			timeElement.hasAttribute('old-time')
 		) {
 			// If the channel changes after the video time was reset,
 			// we can restore the elements
-			timeElement.textContent = timeElement.getAttribute('old-time')!;
-
-			void progressBar.show();
-			void tooltip.show();
+			await unhideTime(false);
 		}
 	}
 
