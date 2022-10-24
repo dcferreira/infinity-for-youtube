@@ -29,7 +29,7 @@ jobs:
       - run: npm run prod --if-present
       - uses: GuillaumeFalourd/assert-command-line-output@v2
         with:
-          command_line: npx dot-json@1 $DIRECTORY/manifest.json
+          command_line: npx dot-json@1 $DIRECTORY/manifest.json version
           contains: ${{ github.event.release.tag_name }}
           expected_result: PASSED
       - name: Submit
