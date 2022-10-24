@@ -1,6 +1,8 @@
 |logo| Infinity for Youtube
 ===========================
 
+|Chrome Web Store|_
+
 Hide duration of some youtube videos to avoid spoilers.
 
 Screenshots
@@ -36,12 +38,16 @@ Bug reports and fixes are more than welcome!
 Install
 -------
 
+Install from the `Chrome Web Store`_ web store
+
 Development
 +++++++++++
 
-Clone the repo, and load the extension manually in `Chrome <https://www.smashingmagazine.com/2017/04/browser-extension-edge-chrome-firefox-opera-brave-vivaldi/#google-chrome-opera-vivaldi>`_.
+Clone the repo, and `load the extension manually in Chrome <https://www.smashingmagazine.com/2017/04/browser-extension-edge-chrome-firefox-opera-brave-vivaldi/#google-chrome-opera-vivaldi>`_.
 
 Firefox is not currently available as it uses Manifest v3.
 But it should be supported soon (follow progress `here <https://bugzilla.mozilla.org/show_bug.cgi?id=1578284>`_).
 
 .. |logo| image:: source/icon32.png
+.. |Chrome Web Store| image:: media/chrome_web_store.png
+.. _Chrome Web Store: https://chrome.google.com/webstore/detail/infinity-for-youtube/dikhofideaigolhecjcmfeifbchnebeo
