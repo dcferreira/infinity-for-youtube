@@ -1,6 +1,6 @@
 {
 	"name": "Infinity for Youtube",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"description": "Hide duration of some youtube videos to avoid spoilers.",
 	"homepage_url": "https://github.com/dcferreira/infinity-for-youtube",
 	"manifest_version": 3,
