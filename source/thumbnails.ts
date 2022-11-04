@@ -52,19 +52,28 @@ export async function replaceFutureThumbnailTimes(): Promise<void> {
 
 	const duration = options.duration;
 	const observer = new MutationObserver((mutations) => {
-		// For each new node added, check if it's a video thumbnail time
-		// and remove it if so
 		for (const mutation of mutations) {
-			for (const node of mutation.addedNodes) {
-				if (
-					node instanceof HTMLElement &&
-					node.classList.contains(
-						'ytd-thumbnail-overlay-time-status-renderer',
-					) &&
-					node.getAttribute('id') === 'text'
-				) {
-					processNode(node, channelNamesSet, duration);
+			if (mutation.type === 'childList') {
+				// For each new node added, check if it's a video thumbnail time
+				// and remove it if so
+				for (const node of mutation.addedNodes) {
+					if (
+						node instanceof HTMLElement &&
+						node.classList.contains(
+							'ytd-thumbnail-overlay-time-status-renderer',
+						) &&
+						node.getAttribute('id') === 'text'
+					) {
+						processNode(node, channelNamesSet, duration);
+					}
 				}
+			} else if (
+				// Thumbnail time was changed for an existing thumbnail
+				mutation.type === 'attributes' &&
+				mutation.attributeName === 'aria-label' &&
+				(mutation.target as HTMLElement).getAttribute('id') === 'text'
+			) {
+				processNode(mutation.target as HTMLElement, channelNamesSet, duration);
 			}
 		}
 	});
@@ -72,7 +81,6 @@ export async function replaceFutureThumbnailTimes(): Promise<void> {
 	observer.observe(document.body, {
 		childList: true,
 		subtree: true,
-		characterData: true,
 		attributes: true,
 	});
 }
@@ -91,25 +99,7 @@ export async function replaceCurrentThumbnailTimes(): Promise<void> {
 	}
 }
 
-document.addEventListener('yt-navigate-finish', () => {
-	setTimeout(async () => {
-		await replaceCurrentThumbnailTimes();
-	}, 1000);
-});
 void replaceFutureThumbnailTimes();
 if (document.body) void replaceCurrentThumbnailTimes();
 else
 	document.addEventListener('DOMContentLoaded', replaceCurrentThumbnailTimes);
-
-// This is needed for the thumbnails after scrolling:
-// If you scroll down new thumbnails will be loaded, but then
-// you navigate away and they are unloaded but not deleted
-// so the next time they load (after you scroll down again)
-// they won't be updated with the 'yt-navigate-finish' event.
-// Using this is inefficient, as this event triggers too much,
-// but I couldn't find a better way
-document.addEventListener('yt-autonav-pause-scroll', () => {
-	setTimeout(async () => {
-		await replaceCurrentThumbnailTimes();
-	}, 1000);
-});
