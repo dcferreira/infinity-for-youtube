@@ -7,7 +7,10 @@ function processNode(
 ) {
 	// eslint-disable-next-line @typescript-eslint/ban-types
 	let channelName: HTMLElement | null | undefined;
-	if (window.location.href.includes('youtube.com/c/')) {
+	if (
+		window.location.href.includes('youtube.com/c/') ||
+		window.location.href.includes('youtube.com/@')
+	) {
 		// We're in a channel page
 		channelName = document
 			.querySelector('.ytd-channel-name')
